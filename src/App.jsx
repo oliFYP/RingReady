@@ -5,10 +5,14 @@ import Footer from "./components/layout/Footer";
 import Loading from "./components/ui/Loading";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import { useAuth } from "./contexts/AuthContext";
-import Home from "./pages/Home";
 
 // Lazy-loaded components with error handling
-
+const Home = lazy(() =>
+  import("./pages/Home").catch(() => {
+    console.error("Failed to load Home component");
+    return { default: () => <div>Error loading page</div> };
+  })
+);
 const Events = lazy(() =>
   import("./pages/Events").catch(() => {
     console.error("Failed to load Events component");
